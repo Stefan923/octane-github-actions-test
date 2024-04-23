@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: GitHub Actions ALM Octane Integration
         # Reference to our public GitHub action
-        uses: .
+        uses: ./
         id: gitHubActionsIntegration
         # Config parameters for the integration
         with:
