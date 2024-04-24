@@ -5,7 +5,7 @@ on:
     types: [opened, edited, closed, reopened]
   workflow_run:
     # List of workflows to integrate with ALM Octane
-    workflows: [maven]
+    workflows: [Java CI with Maven]
     types: [requested, completed]
 # Node configuration for allowing HTTPS requests
 env:
