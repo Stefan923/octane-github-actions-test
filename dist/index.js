@@ -72593,7 +72593,7 @@ const eventCauseBuilder_1 = __nccwpck_require__(54007);
 const pollForJobsOfTypeToFinish = (owner, repoName, currentRun, workflowRunId, startTime, eventType) => __awaiter(void 0, void 0, void 0, function* () {
     let done = false;
     while (!done) {
-        const notFinishedRuns = yield getNotFinishedRuns(owner, repoName, startTime, currentRun);
+        const notFinishedRuns = yield getNotFinishedRuns(owner, repoName, startTime, currentRun, workflowRunId);
         // Integration job name structure is: OctaneIntegration#${{github.event.action}}#${{github.event.workflow_run.id}}
         const runsToWaitFor = notFinishedRuns.filter((run) => __awaiter(void 0, void 0, void 0, function* () {
             const jobs = (yield githubClient_1.default.getWorkflowRunJobs(owner, repoName, run.id)).filter(job => {
@@ -72610,7 +72610,7 @@ const pollForJobsOfTypeToFinish = (owner, repoName, currentRun, workflowRunId, s
     }
 });
 exports.pollForJobsOfTypeToFinish = pollForJobsOfTypeToFinish;
-const getNotFinishedRuns = (owner, repoName, startTime, currentRun) => __awaiter(void 0, void 0, void 0, function* () {
+const getNotFinishedRuns = (owner, repoName, startTime, currentRun, workflowRunId) => __awaiter(void 0, void 0, void 0, function* () {
     const runs = [];
     const params = [
         owner,
@@ -72622,8 +72622,7 @@ const getNotFinishedRuns = (owner, repoName, startTime, currentRun) => __awaiter
     runs.push(...(yield githubClient_1.default.getWorkflowRunsTriggeredBeforeByStatus(...params, "queued" /* WorkflowRunStatus.QUEUED */)));
     runs.push(...(yield githubClient_1.default.getWorkflowRunsTriggeredBeforeByStatus(...params, "requested" /* WorkflowRunStatus.REQUESTED */)));
     runs.push(...(yield githubClient_1.default.getWorkflowRunsTriggeredBeforeByStatus(...params, "waiting" /* WorkflowRunStatus.WAITING */)));
-    console.log(`${runs}`);
-    return runs.filter(run => run.id !== currentRun.id);
+    return runs.filter(run => run.id === workflowRunId);
 });
 const generateRootCiEvent = (event, pipelineData, eventType, scmData) => {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j;
