@@ -7,8 +7,7 @@ on:
     # List of workflows to integrate with ALM Octane
     workflows: [Java CI with Maven]
     types: [requested, in_progress, completed]
-    branches:
-    - 'test-branch'
+    branches: [ 'master', 'test-branch' ]
 # Node configuration for allowing HTTPS requests
 env:
   NODE_TLS_REJECT_UNAUTHORIZED: 1
@@ -26,9 +25,9 @@ jobs:
         # Config parameters for the integration
         with:
           # ALM Octane connection data
-          octaneUrl: 'https://pmo8.almoctane.com/'
-          octaneSharedSpace: 1003
-          octaneWorkspace: 3003
+          octaneUrl: 'https://pmo7.almoctane.com'
+          octaneSharedSpace: 1001
+          octaneWorkspace: 2001
           octaneClientId: ${{secrets.ALM_OCTANE_CLIENT_ID}}
           octaneClientSecret: ${{secrets.ALM_OCTANE_CLIENT_SECRET}}
           # Automatically provided GitHub token
