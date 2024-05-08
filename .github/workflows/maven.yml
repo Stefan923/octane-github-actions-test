@@ -26,5 +26,5 @@ jobs:
     - name: Run JAR files
       run: |
         for jar_file in staging/*.jar; do
-          java -jar "$jar_file"
+          mvn exec:java -Dexec.mainClass=com.example.YourMainClass -Dexec.args=""
         done
