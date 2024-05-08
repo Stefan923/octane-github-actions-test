@@ -72094,7 +72094,7 @@ OctaneClient.createPipeline = (rootJobName, ciServer, jobs) => __awaiter(void 0,
         name: rootJobName,
         jobCiId: rootJobName
     });
-    console.log(`Creating pipeline...`);
+    console.log(`Creating pipeline '${rootJobName}'...`);
     return (yield _a.octane
         .create('pipelines', {
         name: rootJobName,
@@ -72316,7 +72316,6 @@ const handleEvent = (event) => __awaiter(void 0, void 0, void 0, function* () {
             }
             const isWorkflowStarted = eventType == "in_progress" /* ActionsEventType.WORKFLOW_STARTED */;
             console.log(`Getting pipeline data...`);
-            console.log(`Workflow run ID: ${workflowRunId}`);
             const jobs = yield githubClient_1.default.getWorkflowRunJobs(owner, repoName, workflowRunId);
             let pipelineData = yield (0, pipelineDataService_1.getPipelineData)(event, eventType == "requested" /* ActionsEventType.WORKFLOW_QUEUED */, eventType != "completed" /* ActionsEventType.WORKFLOW_FINISHED */, jobs);
             if (isWorkflowStarted) {
@@ -72325,7 +72324,7 @@ const handleEvent = (event) => __awaiter(void 0, void 0, void 0, function* () {
                     throw new Error('Event should contain workflow data!');
                 }
                 console.log(`Creating child pipeline: ${pipelineData.rootJobName}/${branchName}`);
-                let ciJobEvent = {
+                let ciStartedPipelineEvent = {
                     buildCiId: pipelineData.buildCiId,
                     project: `${pipelineData.rootJobName}/${branchName}`,
                     projectDisplayName: `${pipelineData.rootJobName}/${branchName}`,
@@ -72337,7 +72336,7 @@ const handleEvent = (event) => __awaiter(void 0, void 0, void 0, function* () {
                     number: (runNumber === null || runNumber === void 0 ? void 0 : runNumber.toString()) || pipelineData.buildCiId,
                     skipValidation: true
                 };
-                yield octaneClient_1.default.sendEvents([ciJobEvent], pipelineData.instanceId, pipelineData.baseUrl);
+                yield octaneClient_1.default.sendEvents([ciStartedPipelineEvent], pipelineData.instanceId, pipelineData.baseUrl);
                 pipelineData = yield (0, pipelineDataService_1.getPipelineData)(event, false, false);
             }
             const rootParentCauseData = {
@@ -72357,7 +72356,6 @@ const handleEvent = (event) => __awaiter(void 0, void 0, void 0, function* () {
                     while (!done) {
                         done = allStepsFinished;
                         const job = yield githubClient_1.default.getJob(owner, repoName, jobId);
-                        console.log(`Parent component name: ${rootParentCauseData.jobName}`);
                         let ciJobEvent = (0, ciEventsService_1.mapPipelineComponentToCiEvent)(job, rootParentCauseData, pipelineData.buildCiId, allStepsFinished, runNumber);
                         if (!alreadySentStartedEvent ||
                             ciJobEvent.eventType == "finished" /* CiEventType.FINISHED */) {
@@ -72444,7 +72442,6 @@ const handleEvent = (event) => __awaiter(void 0, void 0, void 0, function* () {
                 console.log('Waiting for queued events to finish up...');
                 yield (0, ciEventsService_1.pollForJobsOfTypeToFinish)(owner, repoName, currentRun, workflowRunId, startTime, "in_progress" /* ActionsEventType.WORKFLOW_STARTED */);
                 const completedEvent = (0, ciEventsService_1.generateRootCiEvent)(event, pipelineData, "finished" /* CiEventType.FINISHED */);
-                console.log(`Root event: ${JSON.stringify(completedEvent)}`);
                 yield octaneClient_1.default.sendEvents([completedEvent], pipelineData.instanceId, pipelineData.baseUrl);
                 if ((0, config_1.getConfig)().unitTestResultsGlobPattern) {
                     yield (0, testResultsService_1.sendJUnitTestResults)(owner, repoName, workflowRunId, pipelineData.buildCiId, pipelineData.rootJobName, pipelineData.instanceId);
@@ -72625,7 +72622,7 @@ const getNotFinishedRuns = (owner, repoName, startTime, currentRun) => __awaiter
     runs.push(...(yield githubClient_1.default.getWorkflowRunsTriggeredBeforeByStatus(...params, "queued" /* WorkflowRunStatus.QUEUED */)));
     runs.push(...(yield githubClient_1.default.getWorkflowRunsTriggeredBeforeByStatus(...params, "requested" /* WorkflowRunStatus.REQUESTED */)));
     runs.push(...(yield githubClient_1.default.getWorkflowRunsTriggeredBeforeByStatus(...params, "waiting" /* WorkflowRunStatus.WAITING */)));
-    return runs.filter(run => run.id !== currentRun.id);
+    return runs.filter(run => run.id === currentRun.id);
 });
 const generateRootCiEvent = (event, pipelineData, eventType, scmData) => {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j;
@@ -72884,7 +72881,7 @@ const getPipelineData = (event, shouldCreatePipelineAndCiServer, isParent, jobs)
     const ciServer = yield octaneClient_1.default.getCIServer(instanceId, projectName, baseUrl, shouldCreatePipelineAndCiServer);
     const rootJobName = yield getPipelineName(event, isParent);
     console.log(`Getting pipeline: '${rootJobName}'...`);
-    console.log(`PARENT pipeline: ${JSON.stringify(yield octaneClient_1.default.getPipeline(rootJobName, ciServer, shouldCreatePipelineAndCiServer, jobs))}`);
+    yield octaneClient_1.default.getPipeline(rootJobName, ciServer, shouldCreatePipelineAndCiServer, jobs);
     const buildCiId = (_c = event.workflow_run) === null || _c === void 0 ? void 0 : _c.id.toString();
     if (!buildCiId) {
         throw new Error('Event should contain workflow run data!');
