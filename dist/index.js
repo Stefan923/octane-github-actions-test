@@ -72622,7 +72622,8 @@ const getNotFinishedRuns = (owner, repoName, startTime, currentRun) => __awaiter
     runs.push(...(yield githubClient_1.default.getWorkflowRunsTriggeredBeforeByStatus(...params, "queued" /* WorkflowRunStatus.QUEUED */)));
     runs.push(...(yield githubClient_1.default.getWorkflowRunsTriggeredBeforeByStatus(...params, "requested" /* WorkflowRunStatus.REQUESTED */)));
     runs.push(...(yield githubClient_1.default.getWorkflowRunsTriggeredBeforeByStatus(...params, "waiting" /* WorkflowRunStatus.WAITING */)));
-    return runs.filter(run => run.id === currentRun.id);
+    console.log(`${runs}`);
+    return runs.filter(run => run.id !== currentRun.id);
 });
 const generateRootCiEvent = (event, pipelineData, eventType, scmData) => {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j;
