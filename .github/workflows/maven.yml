@@ -26,5 +26,5 @@ jobs:
     - name: Run JAR files
       run: |
         for jar_file in staging/*.jar; do
-          mvn exec:java -Dexec.mainClass=com.example.YourMainClass -Dexec.args=""
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
         done
