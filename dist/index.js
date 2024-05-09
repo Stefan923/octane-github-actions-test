@@ -71903,6 +71903,7 @@ const github_1 = __nccwpck_require__(95438);
 const config_1 = __nccwpck_require__(84561);
 class GitHubClient {
 }
+exports["default"] = GitHubClient;
 _a = GitHubClient;
 GitHubClient.octokit = (0, github_1.getOctokit)((0, config_1.getConfig)().githubToken);
 GitHubClient.getWorkflowRunJobs = (owner, repo, workflowRunId) => __awaiter(void 0, void 0, void 0, function* () {
@@ -71971,7 +71972,6 @@ GitHubClient.getPullRequestCommitIds = (owner, repo, pullRequestNumber) => __awa
         pull_number: pullRequestNumber
     }, response => response.data)).map(commit => commit.sha);
 });
-exports["default"] = GitHubClient;
 
 
 /***/ }),
@@ -72031,6 +72031,7 @@ class OctaneClient {
         return (q && q.replace(/\\/g, '\\\\').replace(/\(/g, '\\(').replace(/\)/g, '\\)'));
     }
 }
+exports["default"] = OctaneClient;
 _a = OctaneClient;
 OctaneClient.GITHUB_ACTIONS_SERVER_TYPE = 'github_actions';
 OctaneClient.GITHUB_ACTIONS_PLUGIN_VERSION = '1.0.0';
@@ -72107,7 +72108,7 @@ OctaneClient.createPipeline = (rootJobName, ciServer, jobs) => __awaiter(void 0,
     })
         .execute()).data[0];
 });
-OctaneClient.getPipeline = (rootJobName_1, ciServer_1, ...args_1) => __awaiter(void 0, [rootJobName_1, ciServer_1, ...args_1], void 0, function* (rootJobName, ciServer, createOnAbsence = false, jobs) {
+OctaneClient.getPipeline = (rootJobName, ciServer, createOnAbsence = false, jobs) => __awaiter(void 0, void 0, void 0, function* () {
     const pipelineQuery = query_1.default.field('name')
         .equal(_a.escapeOctaneQueryValue(rootJobName))
         .and(query_1.default.field('ci_server').equal(query_1.default.field('id').equal(ciServer.id)))
@@ -72129,7 +72130,7 @@ OctaneClient.getPipeline = (rootJobName_1, ciServer_1, ...args_1) => __awaiter(v
     }
     return pipelines.data[0];
 });
-OctaneClient.getCIServer = (instanceId_1, projectName_1, baseUri_1, ...args_2) => __awaiter(void 0, [instanceId_1, projectName_1, baseUri_1, ...args_2], void 0, function* (instanceId, projectName, baseUri, createOnAbsence = false) {
+OctaneClient.getCIServer = (instanceId, projectName, baseUri, createOnAbsence = false) => __awaiter(void 0, void 0, void 0, function* () {
     const ciServerQuery = query_1.default.field('instance_id')
         .equal(_a.escapeOctaneQueryValue(instanceId))
         .build();
@@ -72163,7 +72164,6 @@ OctaneClient.getJobBuilds = (jobId) => __awaiter(void 0, void 0, void 0, functio
 OctaneClient.sendPullRequestData = (pullRequsts) => __awaiter(void 0, void 0, void 0, function* () {
     yield _a.octane.executeCustomRequest(`${_a.ANALYTICS_CI_API_URL}/pull-requests`, alm_octane_js_rest_sdk_1.Octane.operationTypes.update, pullRequsts);
 });
-exports["default"] = OctaneClient;
 
 
 /***/ }),
