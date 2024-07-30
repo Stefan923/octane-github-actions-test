@@ -6,7 +6,7 @@ on:
     branches: [ 'master', 'test-branch', 'second-branch' ]
   workflow_run:
     # List of workflows to integrate with ALM Octane
-    workflows: [NEW Java CI with Maven]
+    workflows: [Java CI with Maven]
     types: [requested, in_progress, completed]
     branches: [ 'master', 'test-branch', 'second-branch' ]
 # Node configuration for allowing HTTPS requests
