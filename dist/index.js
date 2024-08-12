@@ -99828,7 +99828,7 @@ const isVersionGreaterOrEqual = (version1, version2) => {
     }
     const version1Array = version1.split('.');
     const version2Array = version2.split('.');
-    for (let i = 0; i < version1Array.length || i < version2Array.length; i++) {
+    for (let i = 0; i < version1Array.length && i < version2Array.length; i++) {
         const version1Part = parseInt(version1Array[i]);
         const version2Part = parseInt(version2Array[i]);
         if (version1Part !== version2Part) {
