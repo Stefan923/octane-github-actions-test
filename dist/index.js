@@ -98355,8 +98355,11 @@ OctaneClient.updatePluginVersionIfNeeded = (instanceId, ciServer) => __awaiter(v
     }
 });
 OctaneClient.getOctaneVersion = () => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield _a.octane.executeCustomRequest(_a.ANALYTICS_CI_INTERNAL_API_URL + '/servers/connectivity/status', alm_octane_js_rest_sdk_1.Octane.operationTypes.get);
-    console.log("Octane connectivity status response: " + JSON.stringify(response.data));
+    const requestHeaders = {
+        'ALM-OCTANE-TECH-PREVIEW': true
+    };
+    const response = yield _a.octane.executeCustomRequest(_a.ANALYTICS_CI_INTERNAL_API_URL + '/servers/connectivity/status', alm_octane_js_rest_sdk_1.Octane.operationTypes.get, undefined, requestHeaders);
+    console.log('Octane connectivity status response: ' + JSON.stringify(response.data));
     return response.data.octaneVersion;
 });
 OctaneClient.updatePluginVersion = (instanceId) => __awaiter(void 0, void 0, void 0, function* () {
@@ -98531,7 +98534,7 @@ const handleEvent = (event) => __awaiter(void 0, void 0, void 0, function* () {
             console.log(`Getting pipeline data...`);
             const jobs = yield githubClient_1.default.getWorkflowRunJobs(owner, repoName, workflowRunId);
             const baseUrl = (0, config_1.getConfig)().serverBaseUrl;
-            const useOldCiServer = false; // await isOldCiServer();
+            const useOldCiServer = yield isOldCiServer();
             const ciServerInstanceId = getCiServerInstanceId(owner, useOldCiServer);
             const ciServerName = yield getCiServerName(owner, useOldCiServer);
             console.log('Getting CI Server...');
@@ -98700,7 +98703,7 @@ exports.handleEvent = handleEvent;
 const isOldCiServer = () => __awaiter(void 0, void 0, void 0, function* () {
     const octaneVersion = yield octaneClient_1.default.getOctaneVersion();
     console.log(`Octane version: ${octaneVersion}`);
-    return !(0, utils_1.isVersionGreaterOrEqual)(octaneVersion, "24.4.19");
+    return !(0, utils_1.isVersionGreaterOrEqual)(octaneVersion, '24.4.19');
 });
 const getCiServerInstanceId = (repositoryOwner, useOldCiServer) => {
     if (useOldCiServer) {
