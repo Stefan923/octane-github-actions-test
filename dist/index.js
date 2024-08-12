@@ -98359,7 +98359,7 @@ OctaneClient.getOctaneVersion = () => __awaiter(void 0, void 0, void 0, function
         'ALM-OCTANE-TECH-PREVIEW': true
     };
     const response = yield _a.octane.executeCustomRequest(_a.ANALYTICS_CI_INTERNAL_API_URL + '/servers/connectivity/status', alm_octane_js_rest_sdk_1.Octane.operationTypes.get, undefined, requestHeaders);
-    console.log('Octane connectivity status response: ' + JSON.stringify(response.data));
+    console.log('Octane connectivity status response: ' + JSON.stringify(response));
     return response.data.octaneVersion;
 });
 OctaneClient.updatePluginVersion = (instanceId) => __awaiter(void 0, void 0, void 0, function* () {
