@@ -98282,6 +98282,7 @@ OctaneClient.updatePipeline = (pipeline) => __awaiter(void 0, void 0, void 0, fu
 });
 OctaneClient.updatePipelineInternal = (pipeline) => __awaiter(void 0, void 0, void 0, function* () {
     const url = `${_a.ANALYTICS_WORKSPACE_CI_INTERNAL_API_URL}/pipeline_update`;
+    console.log(`${url}, payload: ${pipeline}`);
     yield _a.octane.executeCustomRequest(url, alm_octane_js_rest_sdk_1.Octane.operationTypes.update, pipeline);
 });
 OctaneClient.getCiServer = (instanceId) => __awaiter(void 0, void 0, void 0, function* () {
@@ -98359,7 +98360,6 @@ OctaneClient.getOctaneVersion = () => __awaiter(void 0, void 0, void 0, function
         'ALM-OCTANE-TECH-PREVIEW': true
     };
     const response = yield _a.octane.executeCustomRequest(_a.ANALYTICS_CI_INTERNAL_API_URL + '/servers/connectivity/status', alm_octane_js_rest_sdk_1.Octane.operationTypes.get, undefined, requestHeaders);
-    console.log('Octane connectivity status response: ' + JSON.stringify(response));
     return response.octaneVersion;
 });
 OctaneClient.updatePluginVersion = (instanceId) => __awaiter(void 0, void 0, void 0, function* () {
