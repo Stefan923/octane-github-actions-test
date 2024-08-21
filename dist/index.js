@@ -98282,7 +98282,7 @@ OctaneClient.updatePipeline = (pipeline) => __awaiter(void 0, void 0, void 0, fu
 });
 OctaneClient.updatePipelineInternal = (pipeline) => __awaiter(void 0, void 0, void 0, function* () {
     const url = `${_a.ANALYTICS_WORKSPACE_CI_INTERNAL_API_URL}/pipeline_update`;
-    console.log(`${url}, payload: ${pipeline}`);
+    console.log(`${url}, payload: ${JSON.stringify(pipeline)}`);
     yield _a.octane.executeCustomRequest(url, alm_octane_js_rest_sdk_1.Octane.operationTypes.update, pipeline);
 });
 OctaneClient.getCiServer = (instanceId) => __awaiter(void 0, void 0, void 0, function* () {
