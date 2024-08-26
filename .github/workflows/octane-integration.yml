@@ -20,7 +20,7 @@ env:
 jobs:
     octane_integration_job:
       # List of runner tags
-      runs-on: [self-hosted,octane-runner]
+      runs-on: [self-hosted]
       name: OctaneIntegration#${{github.event.action}}#${{github.event.workflow_run.id}}
       steps:
         - name: ALM Octane GitHub Actions Integration
