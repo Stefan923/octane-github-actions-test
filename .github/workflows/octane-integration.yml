@@ -1,45 +1,41 @@
-name: OctaneIntegration
+# This is a basic workflow to help you get started with Actions
+
+name: ALMOctaneGitHubActions
+
 # Events the integration should be triggered on
 on:
-  pull_request:
-    types: [opened, edited, closed, reopened]
-    branches: [ 'master', 'test-branch', 'second-branch' ]
+  # Triggers the workflow on requested, completed types
   workflow_run:
     # List of workflows to integrate with ALM Octane
-    workflows: [Java CI with Maven, NEW Java CI with Maven]
-    types: [requested, in_progress, completed]
-    branches: [ 'master', 'test-branch', 'second-branch' ]
+    workflows: [ SCTestPoC ]
+    types: [ requested, completed ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  #workflow_dispatch:
+
 # Node configuration for allowing HTTPS requests
 env:
-  NODE_TLS_REJECT_UNAUTHORIZED: 0
+    NODE_TLS_REJECT_UNAUTHORIZED: 0
+  # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  octane_integration_job:
-    # List of runner tags
-    runs-on: [self-hosted]
-    name: OctaneIntegration#${{github.event.action}}#${{github.event.workflow_run.id}}
-    steps:
-      - uses: actions/checkout@v4
-      - name: GitHub Actions ALM Octane Integration
-        # Reference to our public GitHub action
-        uses: ./
-        #uses: MicroFocus/alm-octane-github-actions-integration@v23.3.0
-        id: gitHubActionsIntegration
-        # Config parameters for the integration
-        with:
-          # ALM Octane connection data
-          #octaneUrl: 'https://laura-2.almoctane.com'
-          octaneUrl: 'http://localhost:8080/dev'
-          octaneSharedSpace: 1001
-          octaneWorkspace: 1002
-          #octaneClientId: ${{secrets.ALM_OCTANE_CLIENT_ID}}
-          octaneClientId: 'GitHubActions_8j26mro65d018sg4l3208mg3r'
-          octaneClientSecret: ')21977172116025510198Z'
-          #octaneClientSecret: ${{secrets.ALM_OCTANE_CLIENT_SECRET}}
-          # Automatically provided GitHub token
-          githubToken: ${{secrets.GITHUB_TOKEN}}
-          # The url that the CI Server in ALM Octane will point to (own)
-          serverBaseUrl: 'https://github.com'
-          # Pattern for building the name of the pipeline
-          pipelineNamePattern: '${repository_owner} ${workflow_name}'
-          # Pattern for identifying JUnit style report files for test result injection in ALM Octane
-          unitTestResultsGlobPattern: "**/*.xml"
+    octane_integration_job:
+      # List of runner tags
+      runs-on: [ubuntu-latest]
+      name: OctaneIntegration#${{github.event.action}}#${{github.event.workflow_run.id}}
+      steps:
+        - name: ALM Octane GitHub Actions Integration
+          # Reference to our public GitHub action
+          uses: MicroFocus/alm-octane-github-actions-integration@v23.3.0
+          id: gitHubActionsIntegration
+
+          # Config parameters for the integration
+          with:
+            # ALM Octane connection data
+            githubToken: ${{secrets.GITHUB_TOKEN}}
+            unitTestResultsGlobPattern: "**/*.xml"
+            octaneUrl: 'https://pmo7.almoctane.com'
+            octaneSharedSpace: 2001
+            octaneWorkspace: 1002
+            octaneClientId: 'github_actions_n0vj9lnxdo1q6hvvlnxw6yz1e'
+            octaneClientSecret: '@224822463243159243134M'
+            serverBaseUrl: 'https://github.com'
