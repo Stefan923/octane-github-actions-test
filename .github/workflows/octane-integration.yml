@@ -23,9 +23,10 @@ jobs:
       runs-on: [ubuntu-latest]
       name: OctaneIntegration#${{github.event.action}}#${{github.event.workflow_run.id}}
       steps:
+        - uses: actions/checkout@v4
         - name: ALM Octane GitHub Actions Integration
           # Reference to our public GitHub action
-          uses: MicroFocus/alm-octane-github-actions-integration@v23.3.0
+          uses: ./
           id: gitHubActionsIntegration
 
           # Config parameters for the integration
