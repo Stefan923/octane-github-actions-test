@@ -8,7 +8,7 @@ on:
   workflow_run:
     # List of workflows to integrate with ALM Octane
     workflows: [ SCTestPoC ]
-    types: [ requested, completed ]
+    types: [ requested, in_progress, completed ]
 
   # Allows you to run this workflow manually from the Actions tab
   #workflow_dispatch:
