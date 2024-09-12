@@ -92959,7 +92959,8 @@ OctaneClient.octane = new alm_octane_js_rest_sdk_1.Octane({
     user: _a.config.octaneClientId,
     password: _a.config.octaneClientSecret,
     headers: {
-        'ALM-OCTANE-TECH-PREVIEW': true
+        'ALM-OCTANE-TECH-PREVIEW': true,
+        'ALM-OCTANE-PRIVATE': true
     }
 });
 OctaneClient.ANALYTICS_WORKSPACE_CI_INTERNAL_API_URL = `/internal-api/shared_spaces/${_a.config.octaneSharedSpace}/workspaces/${_a.config.octaneWorkspace}/analytics/ci`;
@@ -93140,7 +93141,9 @@ OctaneClient.getAllJobsByPipeline = (pipelineId) => __awaiter(void 0, void 0, vo
     const pipelineNodes = response.data;
     const jobs = [];
     pipelineNodes.forEach((pipelineNode) => {
-        jobs.push(pipelineNode.ci_job);
+        if (pipelineNode.ci_job) {
+            jobs.push(pipelineNode.ci_job);
+        }
     });
     return jobs;
 });
@@ -94210,7 +94213,7 @@ const updatePipelineNameIfNeeded = (rootJobCiId, ciServer, pipelineName) => __aw
 exports.updatePipelineNameIfNeeded = updatePipelineNameIfNeeded;
 const upgradePipelineToMultiBranchIfNeeded = (oldPipelineName, newPipelineName, ciIdPrefix) => __awaiter(void 0, void 0, void 0, function* () {
     const pipeline = yield octaneClient_1.default.getPipelineByName(oldPipelineName);
-    if (!pipeline || pipeline.multi_branch_type !== null) {
+    if (!pipeline || pipeline.multi_branch_type) {
         return;
     }
     console.log(`Migrating '${oldPipelineName}' to multi-branch pipeline...`);
