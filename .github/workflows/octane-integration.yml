@@ -40,7 +40,7 @@ jobs:
             #octaneClientId: 'ghtest_7p1ey9n0o6vw4a9zz0d6vx4q9'
             #octaneClientSecret: '%224142101255812142547W'
             #octaneClientId: 'github_actions_n0vj9lnxdo1q6hvvlnxw6yz1e' # pmo7
-            pipelineNamePattern: 'test this pipeline'
+            pipelineNamePattern: 'test this pipeline stefan923'
             #octaneClientSecret: '@224822463243159243134M' # pmo7
             octaneClientId: 'github_actions_yqrxo9e8v11kvf9513v77jd87' # local
             octaneClientSecret: ')18412916411319485215175L' # local
