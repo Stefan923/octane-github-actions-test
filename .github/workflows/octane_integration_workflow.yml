@@ -1,0 +1,47 @@
+name: OpenText Software Delivery Platform Integration
+
+# Events the integration should be triggered on
+on:
+  # Triggers the workflow on requested, completed types
+  workflow_run:
+    # List of workflows to integrate with ALM Octane
+    workflows: [ Many Jobs Serial Workflow, Many Jobs Parallel Workflow, Single Job Workflow, Single Job With Inputs Workflow ]
+    types: [ requested, in_progress, completed ]
+
+# Node configuration for allowing HTTPS requests
+env:
+    NODE_TLS_REJECT_UNAUTHORIZED: 0
+  # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+    octane_integration_job:
+      # List of runner tags
+      runs-on: [self-hosted, runner-stefan]
+      name: OctaneIntegration#${{github.event.action}}#${{github.event.workflow_run.id}}
+      steps:
+        - uses: actions/checkout@v4
+        - name: ALM Octane GitHub Actions Integration
+          # Reference to our public GitHub action
+          #uses: MicroFocus/alm-octane-github-actions-integration@v23.3.0
+          uses: ./
+          id: gitHubActionsIntegration
+
+          # Config parameters for the integration
+          with:
+            # ALM Octane connection data
+            githubToken: ${{secrets.GITHUB_TOKEN}}
+            unitTestResultsGlobPattern: "**/*.xml"
+            #octaneUrl: 'https://pmo7.almoctane.com'
+            #octaneUrl: 'https://qa9.almoctane.com/'
+            octaneUrl: 'http://localhost:8080/dev'
+            #octaneUrl: 'https://laura-1.almoctane.com/'
+            octaneSharedSpace: 1001
+            octaneWorkspace: 1002
+            #octaneClientId: 'ghtest_7p1ey9n0o6vw4a9zz0d6vx4q9'
+            #octaneClientSecret: '%224142101255812142547W'
+            #octaneClientId: 'github_actions_n0vj9lnxdo1q6hvvlnxw6yz1e' # pmo7
+            #octaneClientSecret: '@224822463243159243134M' # pmo7
+            pipelineNamePattern: '${repository_name} ${workflow_name}'
+            octaneClientId: 'ciintegration_z254302942deltzr5y0oeqnrl' # local
+            octaneClientSecret: '$53173624412810813579F' # local
+            serverBaseUrl: 'https://github.com'
+            logLevel: '1'
