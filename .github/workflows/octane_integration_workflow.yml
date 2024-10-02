@@ -15,7 +15,7 @@ env:
 jobs:
     octane_integration_job:
       # List of runner tags
-      runs-on: [self-hosted, runner-stefan]
+      runs-on: [self-hosted]
       name: OctaneIntegration#${{github.event.action}}#${{github.event.workflow_run.id}}
       steps:
         - uses: actions/checkout@v4
