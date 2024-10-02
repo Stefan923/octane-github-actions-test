@@ -29,6 +29,9 @@ on:
       trueOrFalse:
         type: 'boolean'
         default: true
+      anotherParam:
+        type: 'boolean'
+        default: false
   workflow_call:
 
 jobs:
