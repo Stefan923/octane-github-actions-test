@@ -41,7 +41,7 @@ jobs:
             #octaneClientId: 'github_actions_n0vj9lnxdo1q6hvvlnxw6yz1e' # pmo7
             #octaneClientSecret: '@224822463243159243134M' # pmo7
             pipelineNamePattern: '${repository_name} ${workflow_name}'
-            octaneClientId: 'ciintegration_z254302942deltzr5y0oeqnrl' # local
-            octaneClientSecret: '$53173624412810813579F' # local
+            octaneClientId: 'github_Actions_6pnmy7o1n0ok0u9ew9j0q3zq7' # laura 1
+            octaneClientSecret: '+12880662181302391099A' # laura 1
             serverBaseUrl: 'https://github.com'
             logLevel: '1'
