@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build and analyze
+    name: Build and analyze SQ
     runs-on: self-hosted
     
     steps:
