@@ -35,4 +35,4 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Stefan923_octane-github-actions-test_d5ffd173-5d7a-49e1-886a-9e1b0cb40943 -Dsonar.projectName='octane-github-actions-test'
+        run: mvn -X -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Stefan923_octane-github-actions-test_bf5e9d93-8f2d-4f5c-9856-8c7ccc209a1b -Dsonar.projectName='octane-github-actions-test'
