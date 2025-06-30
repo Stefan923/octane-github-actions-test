@@ -24,7 +24,7 @@ public class BooleanCalculatorTest {
     @DisplayName("And test for one false - failing test")
     @Test
     public void testAnd_whenOneFalse_Failing() {
-        boolean expectedResult = true;
+        boolean expectedResult = false;
 
         BooleanCalculator calc = new BooleanCalculator();
         calc.and(false, true);
