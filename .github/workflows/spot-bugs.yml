@@ -1,10 +1,6 @@
 name: SpotBugs Static Analysis
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
   workflow_dispatch:
 
 jobs:
@@ -45,4 +41,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: spotbugs-report
-          path: /**/target/spotbugsXml.xml
+          path: vulnerable-app/target/spotbugsXml.xml
