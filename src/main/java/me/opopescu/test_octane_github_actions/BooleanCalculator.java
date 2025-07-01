@@ -14,4 +14,8 @@ public class BooleanCalculator {
     public boolean getResult() {
         return result;
     }
+
+    public String getResultAsString() {
+        return String.valueOf(result);
+    }
 }
