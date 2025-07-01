@@ -21,11 +21,11 @@ jobs:
 
       - name: Run Semgrep security audit
         run: |
-          # run OWASP Top 10 Java + general security rules
-          semgrep --config=p/java/owasp-top10 \
-                  --config=p/security-audit \
-                  --sarif-output semgrep-report.sarif \
-                  vulnerable-app/src
+          semgrep `
+            --config=p/java/owasp-top10 `
+            --config=p/security-audit `
+            --sarif-output semgrep-report.sarif `
+            vulnerable-app/src
 
       - name: Upload Semgrep SARIF report
         if: always()
