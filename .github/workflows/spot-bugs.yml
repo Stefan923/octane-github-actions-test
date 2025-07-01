@@ -31,10 +31,14 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Compile project
-        run: mvn compile
+        run: |
+          cd vulnerable-app
+          mvn compile
 
       - name: Run SpotBugs
-        run: mvn com.github.spotbugs:spotbugs-maven-plugin:spotbugs
+        run: |
+          cd vulnerable-app
+          mvn com.github.spotbugs:spotbugs-maven-plugin:spotbugs
 
       - name: Archive SpotBugs report
         if: always()
