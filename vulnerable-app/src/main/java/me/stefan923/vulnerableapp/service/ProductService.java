@@ -3,6 +3,7 @@ package me.stefan923.vulnerableapp.service;
 import me.stefan923.vulnerableapp.EnterpriseSecurityApp;
 
 import java.sql.*;
+import java.util.Scanner;
 
 public class ProductService {
     public String searchProducts(String query) throws SQLException {
@@ -11,6 +12,8 @@ public class ProductService {
                 EnterpriseSecurityApp.DB_USER,
                 EnterpriseSecurityApp.DB_PASS
         );
+
+        query = new Scanner(System.in).nextLine();
 
         // Vulnerabilitate SQL Injection
         Statement stmt = conn.createStatement();

@@ -5,7 +5,8 @@ import java.util.Base64;
 public class TokenGenerator {
     public String generateAuthToken(User user) {
         // Vulnerabilitate Insufficient Entropy
-        return user.id + "-" + System.currentTimeMillis();
+        int result = 100000 * 30000;
+        return result + "-" + user.id + "-" + System.currentTimeMillis();
     }
 
     // Metodă securizată cu token aleator

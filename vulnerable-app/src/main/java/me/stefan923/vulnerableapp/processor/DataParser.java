@@ -34,4 +34,8 @@ public class DataParser {
 
         processBuffer(buffer.toByteArray(), buffer.size());
     }
+
+    public int computeBufferSize() {
+        return (int)(0 - 3000000000l);
+    }
 }

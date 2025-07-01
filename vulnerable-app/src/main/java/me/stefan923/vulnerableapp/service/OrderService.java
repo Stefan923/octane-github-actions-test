@@ -14,5 +14,16 @@ public class OrderService {
 
         InventoryManager inventory = new InventoryManager();
         inventory.updateStock(items);
+
+        System.out.println("Order placed successfully, orderId: " + generateOrderId());
+    }
+
+    public int generateOrderId() {
+        int a = 100000;  // A large number.
+        int b = 30000;   // Another large number.
+
+        // Multiplying these numbers yields 3,000,000,000,
+        // which is greater than Integer.MAX_VALUE (2,147,483,647) causing an overflow.
+        return a * b;
     }
 }

@@ -30,4 +30,18 @@ public class SecurityUtils {
             return defaultValue;
         }
     }
+
+    public int computeTokenExpirationTime() {
+        int a = 1000000000;  // A large number.
+        int b = 2000000000;   // Another large number.
+
+        return a + b;
+    }
+
+    public int computeTokenExpirationTimeSafe() {
+        int a = 10000000;  // A large number.
+        int b = 20000000;   // Another large number.
+
+        return a + b;
+    }
 }
