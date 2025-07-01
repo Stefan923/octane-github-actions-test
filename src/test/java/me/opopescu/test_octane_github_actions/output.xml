@@ -1,5 +1,0 @@
-<testsuite>
-    <testcase name="Turn Off" classname="Car test suite.Engine test suite.Class name 1"/>
-    <testcase name="Turn Off" classname="Car test suite.Engine test suite.Class name 2"/>
-    <testcase name="Disable" classname="Car test suite.Sensors test suite.Class name 3"/>
-</testsuite>
